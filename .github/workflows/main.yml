@@ -10,24 +10,24 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: Checkout Codigo
+    - name: Checkout do Repositorio
       uses: actions/checkout@v4
       
-    - name: Configurar Python
+    - name: Configurar o Python
       uses: actions/setup-python@v5
       with:
         python-version: '3.11'
         
-    - name: Instalar Dependencias
+    - name: Instalar Bibliotecas Direto
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        pip install customtkinter==5.2.2 pandas==2.2.0 pyinstaller==6.3.0 openpyxl==3.1.2
         
-    - name: Compilar EXE com PyInstaller
+    - name: Compilar o EXE
       run: |
-        pyinstaller --noconfirm --onefile --windowed --collect-all customtkinter --name "BuscadorPropostas" "app.py"
+        pyinstaller --noconfirm --onefile --windowed --collect-all customtkinter --hidden-import openpyxl --name "BuscadorPropostas" "app.py"
         
-    - name: Upload do Executavel
+    - name: Salvar o Executavel
       uses: actions/upload-artifact@v4
       with:
         name: BuscadorPropostas-Windows
